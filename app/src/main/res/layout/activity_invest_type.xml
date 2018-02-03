@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+    <!--<RelativeLayout-->
+        <!--android:background="#54c3cf"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="40dp">-->
+
+        <!--<ImageView-->
+            <!--android:enabled="false"-->
+            <!--android:src="@drawable/grxx"-->
+            <!--android:id="@+id/iv_com_info"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="25dp" />-->
+
+        <!--<TextView-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="不忘初心、牢记使命，奋进新时代、实现新跨越"/>-->
+
+
+    <!--</RelativeLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#54c3cf">
+
+        <ImageView
+        android:enabled="false"
+        android:src="@drawable/grxx"
+        android:id="@+id/iv_com_info"
+
+            android:layout_gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp" />
+
+        <TextView
+            android:text="不忘初心、牢记使命，奋进新时代、实现新跨越"
+            android:textColor="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:textSize="17sp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="静 安 区 事 业 单 位 大 调 研 调 查 问 卷"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:enabled="false"
+            android:id="@+id/iv_wdc_type"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xdc"/>
+
+        <ImageView
+            android:enabled="false"
+            android:id="@+id/iv_ydc_type"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ydc"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"></LinearLayout>
+    <LinearLayout
+        android:background="@drawable/tp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

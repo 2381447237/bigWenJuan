@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.youli.companybigwenjuan.activity.LoginActivity"
+    android:background="@drawable/sybj">
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_login"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"/>
+    
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/ll_login"
+        android:padding="5dp"
+        android:id="@+id/ll_username_login"
+        android:background="@drawable/login_username_ll_shape"
+        android:orientation="horizontal"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:gravity="center"
+           android:layout_gravity="center"
+            android:src="@drawable/yhm"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:hint="用 户 名"
+            android:id="@+id/et_username_login"
+            android:background="@null"
+            android:singleLine="true"
+            android:layout_gravity="center"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/ll_username_login"
+        android:id="@+id/ll_password_login"
+        android:background="@drawable/login_username_ll_shape"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:src="@drawable/mm"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:hint="密 码"
+            android:id="@+id/et_password_login"
+            android:inputType="textPassword"
+            android:background="@null"
+            android:singleLine="true"
+            android:layout_gravity="center"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+
+   <Button
+       android:id="@+id/btn_login"
+       android:layout_marginTop="50dp"
+       android:layout_centerInParent="true"
+       android:layout_below="@id/ll_password_login"
+       android:layout_width="290dp"
+       android:layout_height="wrap_content"
+       android:textSize="18sp"
+       android:textColor="#fff"
+       android:text="登   录"
+       android:background="@drawable/btn_dl_selector2"/>
+
+</RelativeLayout>

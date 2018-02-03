@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+    <RelativeLayout
+        android:background="#54c3cf"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账 号 信 息"/>
+
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f1f1f1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:background="#ffffff"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:text="定位"/>-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv_admin_info_gps"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="15dp"-->
+                        <!--android:src="@drawable/jt"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_admin_info_wx"-->
+                        <!--android:textColor="#cccccc"-->
+                        <!--android:layout_toLeftOf="@id/iv_admin_info_gps"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:paddingRight="10dp"-->
+                        <!--android:id="@+id/tv_admin_info_wdu"-->
+                        <!--android:textColor="#cccccc"-->
+                        <!--android:layout_toLeftOf="@id/tv_admin_info_wx"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--/>-->
+                    <!--<TextView-->
+                        <!--android:paddingRight="10dp"-->
+                        <!--android:id="@+id/tv_admin_info_jdu"-->
+                        <!--android:textColor="#cccccc"-->
+                        <!--android:layout_toLeftOf="@id/tv_admin_info_wdu"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--/>-->
+                <!--</RelativeLayout>-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:background="#ffffff"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:text="头像"/>-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv_admin_info_head_arrow"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="15dp"-->
+                        <!--android:src="@drawable/jt"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+
+                    <!--<com.youli.zbetuch_huangpu.view.CircleImageView-->
+                        <!--android:id="@+id/iv_admin_info_head"-->
+                        <!--android:layout_toLeftOf="@id/iv_admin_info_head_arrow"-->
+                        <!--android:layout_width="45dp"-->
+                        <!--android:layout_height="45dp"-->
+                        <!--android:src="@drawable/personhead"-->
+                        <!--app:civ_border_color="#ffffff"-->
+                        <!--app:civ_border_width="1dp"-->
+                        <!--/>-->
+
+
+
+                <!--</RelativeLayout>-->
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="操作员工号"/>
+
+                    <ImageView
+                        android:id="@+id/iv_admin_info_head_operator_no"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_admin_info_operator_no"
+                        android:textColor="#cccccc"
+                        android:layout_toLeftOf="@id/iv_admin_info_head_operator_no"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="姓名"/>
+                    <ImageView
+                        android:id="@+id/iv_admin_info_head_name"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+                    <TextView
+                        android:id="@+id/tv_admin_info_name"
+                        android:textColor="#cccccc"
+                        android:layout_toLeftOf="@id/iv_admin_info_head_name"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="联系电话"/>
+                    <ImageView
+                        android:id="@+id/iv_admin_info_head_phone"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+                    <TextView
+                        android:id="@+id/tv_admin_info_phone"
+                        android:textColor="#cccccc"
+                        android:layout_toLeftOf="@id/iv_admin_info_head_phone"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="电子邮箱"/>
+                    <ImageView
+                        android:id="@+id/iv_admin_info_head_email"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+                    <TextView
+                        android:id="@+id/tv_admin_info_email"
+                        android:textColor="#cccccc"
+                        android:layout_toLeftOf="@id/iv_admin_info_head_email"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:background="#ffffff"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:text="设备号"/>-->
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv_admin_info_head_device_no"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="15dp"-->
+                        <!--android:src="@drawable/jt"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_admin_info_device_no"-->
+                        <!--android:textColor="#cccccc"-->
+                        <!--android:layout_toLeftOf="@id/iv_admin_info_head_device_no"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+
+                        <!--/>-->
+
+                <!--</RelativeLayout>-->
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="状态"/>
+                    <ImageView
+                        android:id="@+id/iv_admin_info_head_state"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+                    <TextView
+                        android:id="@+id/tv_admin_info_state"
+                        android:textColor="#cccccc"
+                        android:layout_toLeftOf="@id/iv_admin_info_head_state"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:background="#ffffff"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:text="身份证"/>-->
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv_admin_info_head_sfz"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="15dp"-->
+                        <!--android:src="@drawable/jt"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_admin_info_sfz"-->
+                        <!--android:textColor="#cccccc"-->
+                        <!--android:layout_toLeftOf="@id/iv_admin_info_head_sfz"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+
+                        <!--/>-->
+
+                <!--</RelativeLayout>-->
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="所属部门"/>
+                    <ImageView
+                        android:id="@+id/iv_admin_info_head_department"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+                    <TextView
+                        android:singleLine="true"
+                        android:id="@+id/tv_admin_info_department"
+                        android:textColor="#cccccc"
+                        android:layout_toLeftOf="@id/iv_admin_info_head_department"
+                        android:layout_centerVertical="true"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="街道"/>
+                    <ImageView
+                        android:id="@+id/iv_admin_info_head_street"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+                    <TextView
+                        android:id="@+id/tv_admin_info_street"
+                        android:textColor="#cccccc"
+                        android:layout_toLeftOf="@id/iv_admin_info_head_street"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:background="#ffffff"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:text="IMEI"/>-->
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv_admin_info_head_imei"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="15dp"-->
+                        <!--android:src="@drawable/jt"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_admin_info_imei"-->
+                        <!--android:textColor="#cccccc"-->
+                        <!--android:layout_toLeftOf="@id/iv_admin_info_head_imei"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="20sp"-->
+
+                        <!--/>-->
+
+                <!--</RelativeLayout>-->
+
+                <RelativeLayout
+                    android:id="@+id/rela_mmxg"
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="密码修改"/>
+                    <ImageView
+                        android:id="@+id/image_maxg"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/jt"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
