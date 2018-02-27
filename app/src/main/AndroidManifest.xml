@@ -36,9 +36,7 @@
         </activity>
         <activity android:name=".activity.InvestTypeActivity"
             android:screenOrientation="portrait"></activity><!--调查类型-->
-        <activity android:name=".activity.NaireDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity><!--问卷详情-->
+        <!--问卷详情-->
         <activity android:name=".activity.OvertimeDialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DialogActivityTheme"></activity>
@@ -49,6 +47,8 @@
             android:screenOrientation="portrait"></activity><!--已调查列表-->
         <activity android:name=".activity.ModifyPassword"
             android:screenOrientation="portrait"></activity><!--修改密码-->
+        <activity android:name=".activity.NaireDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

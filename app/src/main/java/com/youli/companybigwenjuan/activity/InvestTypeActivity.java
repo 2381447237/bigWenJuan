@@ -65,7 +65,7 @@ public class InvestTypeActivity extends BaseActivity implements View.OnClickList
     private ImageView ivComInfo;
     private Handler gpsHandler;//用来检测gps是否打开
 
-    private int getGPSTime=1000;//获取GPS经纬度的时间间隔，默认是500ms
+    private int getGPSTime=5000;//获取GPS经纬度的时间间隔，默认是500ms
 
     public  static String jDuStr,wDuStr;//要上传的经度和纬度
 
@@ -371,7 +371,7 @@ public class InvestTypeActivity extends BaseActivity implements View.OnClickList
 
         }else{
 
-            getGPSTime=1000;//500ms
+            getGPSTime=5000;//500ms
 
             String spJdu= SharedPreferencesUtils.getString("jDu");//sp取经度
             String spWdu=SharedPreferencesUtils.getString("wDu");//sp取纬度

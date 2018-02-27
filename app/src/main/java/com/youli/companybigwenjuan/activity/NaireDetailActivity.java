@@ -18,6 +18,9 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,6 +29,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +54,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liutao on 2018/1/30.
@@ -59,8 +65,6 @@ import java.util.List;
  */
 
 public class NaireDetailActivity extends BaseActivity implements View.OnClickListener{
-
-   // private boolean isTablet=true;//判断是平板，还是手机
 
     private Context mContext=this;
     private LinearLayout bigll;
@@ -88,9 +92,16 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
     private List<EditText> editTexts = new ArrayList<EditText>();
     // 保存大题的编辑框
     private List<EditText> questionEditTexts = new ArrayList<EditText>();
+
     private List<TextView> questionTextViews = new ArrayList<TextView>();
     // 保存出生年月的编辑框
     private List<EditText> birthEditTexts = new ArrayList<EditText>();
+
+    private List<Spinner> spinners = new ArrayList<>();//选择分数的答案
+
+    private List<String>  scores = new ArrayList<>();
+
+    Map<Integer ,String> spinnerScores=new HashMap<>();
 
     private byte [] shujuliu;//答案数据流
     // 保存所选的答案和题号
@@ -99,6 +110,10 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
     private List<NaireAnswerInfo> aInfo=new ArrayList<>();//上个界面传递过来的答案信息
 
     private String typeStr;//1代表新调查,2代表已调查
+
+    ArrayAdapter<String> yAdapter;
+
+ //   private boolean isLast=true;//上一题
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -187,6 +202,7 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.btn_next://下一题
 
                 nextQuestion();
+           // isLast=false;
                 break;
 
             case R.id.btn_all://查看全部
@@ -198,6 +214,11 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                 btnRestart.setVisibility(View.VISIBLE);
                 btnSubmit.setVisibility(View.VISIBLE);
 
+                //隐藏软键盘
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                }
                 seeAllQuestion();
                 break;
 
@@ -225,6 +246,7 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
         questionEditTexts.clear();
         birthEditTexts.clear();
         questionTextViews.clear();
+        spinners.clear();
         index=0;
 
 
@@ -243,6 +265,9 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void lastQuestion(){
         //上一题
+
+
+
 
         if (index == 0) {
             Toast.makeText(this, "已经是第一题了", Toast.LENGTH_SHORT).show();
@@ -277,12 +302,23 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                 }
             }
 
-            // 去掉出生年月的文本(可能有问题)
+            // 去掉出生年月的文本
             for (EditText editText : birthEditTexts) {
                 if (wenJuanInfo.getID() == editText.getId()) {
                     editText.setText("");
                 }
             }
+
+            // 去掉下拉框的值(有问题)
+            for (Spinner sp : spinners) {
+                if (wenJuanInfo.getID() == sp.getId()) {
+
+                    sp.setSelection(0);
+                    yAdapter.notifyDataSetChanged();
+                  //  break;
+                }
+            }
+
 
         }
 
@@ -352,6 +388,9 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
                 return;
             }
+
+
+
         }
         if(info.getINPUT_TYPE().contains("无")){
             if (makeEditBrith(answerInfo)){
@@ -365,7 +404,10 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
             return;
         if (makeEdit_checkBox(answerInfo))
             return;
-
+        if (checkIsSelectYear()) {
+            Toast.makeText(this, "请选择合适的答案", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (index >= questionTitleList.size() - 1) {
             Toast.makeText(this, "已经是最后一题了", Toast.LENGTH_SHORT).show();
             btnAll.setVisibility(View.VISIBLE);
@@ -458,6 +500,8 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
 
                         Log.e("2018-01-31","您的答案是:"+answerString);
+
+
 
                         try {
                             shujuliu= answerString.getBytes("UTF-8");
@@ -581,6 +625,7 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
         questionEditTexts.clear();
         birthEditTexts.clear();
         questionTextViews.clear();
+        spinners.clear();
         if(questionTitleList.size()>0){
             if (tempList.size() > 0) {
                 tempList.clear();
@@ -604,13 +649,8 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
         alllinearLayout.setLayoutParams(allparam);
         LinearLayout qll=new LinearLayout(this);//问题的布局
 
-        //if(info.getTITLE_L().length()>=20) {//左边的文字长度大于等于20就换行
-
             qll.setOrientation(LinearLayout.VERTICAL);
-      //  }else{
 
-       //     qll.setOrientation(LinearLayout.HORIZONTAL);
-       // }
 
         if(!TextUtils.equals("",info.getTITLE_TOP())) {
             TextView tvTop = new TextView(this);//问题上边的部分
@@ -768,17 +808,10 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
              }
          }
 
-
-
-
         alllinearLayout.addView(qll,allparam);
-
-
 
         LinearLayout optionlinearLayout=new LinearLayout(this);//选项的布局
         optionlinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-
 
 
         LinearLayout xuanxiangll=new LinearLayout(this);
@@ -837,6 +870,19 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
             return Integer.valueOf(a.substring(a.indexOf("最多选")+3,a.indexOf("项")));
 
+//            if(a.substring(a.indexOf("最多选")+3,a.indexOf("项")).equals("二")){
+//                return 2;
+//            }else if(a.substring(a.indexOf("最多选")+3,a.indexOf("项")).equals("三")){
+//                return 3;
+//            }else if(a.substring(a.indexOf("最多选")+3,a.indexOf("项")).equals("四")){
+//                return 4;
+//            }else if(a.substring(a.indexOf("最多选")+3,a.indexOf("项")).equals("五")){
+//                return 5;
+//            }else if(a.substring(a.indexOf("最多选")+3,a.indexOf("项")).equals("六")){
+//                return 2;
+//            }else
+
+
         }
 
         if(a.contains("不要超过")&&a.contains("个)")){
@@ -853,7 +899,7 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
         }
 
-        return 30;
+        return 20;
     }
 
     //出生年月的布局
@@ -1063,27 +1109,37 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
         ll.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams llParam;
-        if(info.isINPUT()){
-            if(info.getTITLE_L().length()<25) {
-
-                llParam = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, 280);
 
 
-            }else if(info.getTITLE_L().length()<50){
+
+        if(info.getINPUT_TYPE().contains("下拉框")) {
+
+            if(info.getINPUT_TYPE().contains("文本")){
                 llParam = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, 350);
-
-
             }else {
-                llParam = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, 400);
+
+                if (info.getTITLE_L().length() < 25) {
+
+                    llParam = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT, 280);
 
 
+                } else if (info.getTITLE_L().length() < 50) {
+                    llParam = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT, 350);
+
+
+                } else {
+                    llParam = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT, 400);
+
+
+                }
             }
         }else{
          llParam = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, 90);
+                    ViewGroup.LayoutParams.WRAP_CONTENT, 125);
         }
 
 
@@ -1096,9 +1152,7 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
         if(isAll.equals("all")){
             cb.setEnabled(false);
         }
-//        LinearLayout.LayoutParams cbParam = new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT, 200);
-//        group.addView(cb,cbParam);
+
 
         if(this_CheckBoxs.size()>0){
             List<CheckBox> tempRadioButtons=new ArrayList<>();
@@ -1131,9 +1185,7 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
                     }
                 }
-
             }
-
         }
 
         //多选题选项的文字和输入框
@@ -1149,13 +1201,14 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
         }else{
             tvLeft.setGravity(Gravity.CENTER);
             tvParam   = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,90);
+                    ViewGroup.LayoutParams.WRAP_CONTENT,120);
         }
 
        tvLeft.setLayoutParams(tvParam);
         ll.addView(tvLeft);
 
-        if(info.isINPUT()) {
+
+        if(info.getINPUT_TYPE().contains("下拉框")) {
 
             if(info.getTITLE_L().length()<25) {
 
@@ -1180,48 +1233,139 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
                 group.addView(cb);
             }
-            EditText et = new EditText(this);
-            if(isAll.equals("all")){
-                et.setEnabled(false);
-            }
-            //2018-2-2注释
-//            if(isTablet) {
-//                et.setPadding(0, 0, 0, 10);
-//            }else{
-//                et.setPadding(0, -20, 0, 0);
-//            }
-            et.setGravity(Gravity.CENTER);
-            et.setText("");
-            et.setId(info.getID());
-
-            if (TextUtils.equals(info.getINPUT_TYPE(), "数字")) {
-                et.setInputType(InputType.TYPE_CLASS_NUMBER);
-            }
-
-            if (editTexts.size() > 0) {
-                List<EditText> tempEditTexts = new ArrayList<EditText>();
-                for (EditText editText2 : editTexts) {
-                    if (editText2.getId() == info.getID()) {
-                        et.setText(editText2.getText());
-                        tempEditTexts.add(editText2);
-                    }
-
-                }
-                editTexts.removeAll(tempEditTexts);
-                tempEditTexts.clear();
-            }
             LinearLayout.LayoutParams etParam = new LinearLayout.LayoutParams(
                     info.getWIDTH(), ViewGroup.LayoutParams.WRAP_CONTENT);
-            editTexts.add(et);
+            if(info.getINPUT_TYPE().contains("文本")) {
+
+                EditText et = new EditText(this);
+                if (isAll.equals("all")) {
+                    et.setEnabled(false);
+                }
+                et.setSingleLine();
+                et.setGravity(Gravity.CENTER);
+                et.setText("");
+                et.setId(info.getID());
+
+                if (TextUtils.equals(info.getINPUT_TYPE(), "数字")) {
+                    et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                }
+
+                if (editTexts.size() > 0) {
+                    List<EditText> tempEditTexts = new ArrayList<EditText>();
+                    for (EditText editText2 : editTexts) {
+                        if (editText2.getId() == info.getID()) {
+                            et.setText(editText2.getText());
+                            tempEditTexts.add(editText2);
+                        }
+
+                    }
+                    editTexts.removeAll(tempEditTexts);
+                    tempEditTexts.clear();
+                }
+
+                editTexts.add(et);
+
+                if (aInfo != null && aInfo.size() > 0) {
+
+                    for (NaireAnswerInfo caInfo : aInfo) {
+
+                        for (EditText myRb : editTexts) {
+
+                            String str=caInfo.getINPUT_VALUE();
+
+                            if(str.contains("&")){
+                                str=str.split("&")[0];
+                            }
+
+                            if (caInfo.getDETIL_ID() == myRb.getId()) {
+
+                                myRb.setText(str);
+
+                            }
+                        }
+                    }
+                }
+                et.setLayoutParams(etParam);
+                ll.addView(et);
+            }
+
+            final Spinner spinner = new Spinner(this);
+
+            spinner.setBackgroundColor(Color.parseColor("#00000000"));
+            if ("all".equals(isAll)) {
+                spinner.setEnabled(false);
+            } else {
+                spinner.setEnabled(true);
+            }
+
+            spinner.setGravity(Gravity.CENTER);
+            spinner.setId(info.getID());
+            spinner.setPadding(10, 0, 0, 0);
+            if (scores.isEmpty()) {
+                getScores();
+            }
+
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                             spinnerScores.put(spinner.getId(), spinner.getSelectedItem().toString().trim());
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            yAdapter = new ArrayAdapter<String>(this, R.layout.selectyear_spinner_item, R.id.spinner_tv, scores);
+            spinner.setAdapter(yAdapter);
+            spinner.setLayoutParams(etParam);
+
+
+            if (spinners.size() > 0) {
+                List<Spinner> tempSpinners = new ArrayList<>();
+
+                    for (Spinner spinner1 : spinners) {
+
+                            for (int i = 0; i < scores.size(); i++) {
+                                if (TextUtils.equals(spinnerScores.get(spinner1.getId()), scores.get(i))) {
+                                    spinner1.setSelection(i);
+
+                                    yAdapter.notifyDataSetChanged();
+                                    tempSpinners.add(spinner);
+                                }
+                            }
+                    }
+
+                spinners.removeAll(tempSpinners);
+                tempSpinners.clear();
+            }
+
 
             if(aInfo!=null&&aInfo.size()>0){
 
                 for(NaireAnswerInfo caInfo:aInfo){
 
-                    for(EditText myRb:editTexts){
-                        if(caInfo.getDETIL_ID()==myRb.getId()){
+                    for(Spinner sp:spinners){
+                        if(caInfo.getDETIL_ID()==sp.getId()){
 
-                            myRb.setText(caInfo.getINPUT_VALUE());
+
+                            for(int i=0;i<scores.size();i++){
+
+                                String str=caInfo.getINPUT_VALUE();
+
+                                if(str.contains("&")){
+                                    str=str.split("&")[1];
+                                }
+
+                                if(TextUtils.equals(scores.get(i),str)){
+                                    sp.setSelection(i);
+                                    yAdapter.notifyDataSetChanged();
+
+                                }
+                            }
 
                         }
                     }
@@ -1230,8 +1374,19 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
             }
 
-            et.setLayoutParams(etParam);
-            ll.addView(et);
+            ll.addView(spinner);
+
+            for(int i=0;i<spinners.size();i++){
+                if(spinners.get(i).getId()==spinner.getId()){
+                    spinners.remove(i);
+                    break;
+                }
+            }
+
+
+            spinners.add(spinner);
+
+
             TextView tvRight = new TextView(this);
             tvRight.setGravity(Gravity.CENTER);
 
@@ -1239,8 +1394,65 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
             ll.addView(tvRight,llParam);
 
         }else{
+
+            LinearLayout.LayoutParams etParam = new LinearLayout.LayoutParams(
+                    info.getWIDTH(), ViewGroup.LayoutParams.WRAP_CONTENT);
+            if(info.getINPUT_TYPE().contains("文本")) {
+
+                EditText et = new EditText(this);
+                if (isAll.equals("all")) {
+                    et.setEnabled(false);
+                }
+                et.setSingleLine();
+                et.setGravity(Gravity.CENTER);
+                et.setText("");
+                et.setId(info.getID());
+                et.setPadding(0,0,0,25);
+                if (TextUtils.equals(info.getINPUT_TYPE(), "数字")) {
+                    et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                }
+
+                if (editTexts.size() > 0) {
+                    List<EditText> tempEditTexts = new ArrayList<EditText>();
+                    for (EditText editText2 : editTexts) {
+                        if (editText2.getId() == info.getID()) {
+                            et.setText(editText2.getText());
+                            tempEditTexts.add(editText2);
+                        }
+
+                    }
+                    editTexts.removeAll(tempEditTexts);
+                    tempEditTexts.clear();
+                }
+
+                editTexts.add(et);
+
+                if (aInfo != null && aInfo.size() > 0) {
+
+                    for (NaireAnswerInfo caInfo : aInfo) {
+
+                        for (EditText myRb : editTexts) {
+
+                            String str=caInfo.getINPUT_VALUE();
+
+                            if(str.contains("&")){
+                                str=str.split("&")[0];
+                            }
+
+                            if (caInfo.getDETIL_ID() == myRb.getId()) {
+
+                                myRb.setText(str);
+
+                            }
+                        }
+                    }
+                }
+                et.setLayoutParams(etParam);
+                ll.addView(et);
+            }
+
             LinearLayout.LayoutParams cbParam = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, 90);
+                    ViewGroup.LayoutParams.WRAP_CONTENT, 125);
             group.addView(cb,cbParam);
 
         }
@@ -1313,14 +1525,28 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                             answerInfo.setAnswerText("");
                         }
                     }
-                    if (editTexts.size() > 0) {
-                        for (EditText editText : editTexts) {
-                            if (radioButton.getId() == editText.getId()) {
-                                answerInfo.setAnswerText(editText.getText()
-                                        .toString().trim());
+
+                    if (spinners.size() > 0) {
+                        for (Spinner sp : spinners) {
+
+                                if (radioButton.getId() == sp.getId()) {
+                                    answerInfo.setAnswerText(sp.getSelectedItem().toString());
+
                             }
                         }
                     }
+
+
+                                        if (editTexts.size() > 0) {
+                        for (EditText editText : editTexts) {
+                            if (answerInfo.getAnswerId() == editText.getId()) {
+                                answerInfo.setAnswerText(editText.getText()
+                                        .toString().trim()+"&"+answerInfo.getAnswerText());
+                            }
+                        }
+                    }
+
+
                     answerInfos2.add(answerInfo);
                 }
             }
@@ -1494,6 +1720,34 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
         return false;
     }
 
+    //判断分数是否选择
+    private boolean checkIsSelectYear() {
+
+        if (spinners.size() > 0) {
+
+
+            for (CheckBox radioButton : this_CheckBoxs) {
+                if (radioButton.isChecked()) {
+                    for (Spinner spinner :spinners) {
+
+                            if (radioButton.getId() == spinner.getId()&&TextUtils.equals("请选择分数", spinner.getSelectedItem().toString().trim())
+                                    ) {
+                                Toast.makeText(mContext, "答案不能为空!",
+                                        Toast.LENGTH_SHORT).show();
+
+                                return true;
+
+
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return false;
+    }
+
     //复选框的监听
     public class MyOnCheckedChangeListener implements CompoundButton.OnCheckedChangeListener {
 
@@ -1568,13 +1822,15 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                 }).create().show();
     }
 
-//    /**
-//     * 判断是否平板设备
-//     * @param context
-//     * @return true:平板,false:手机
-//     */
-//    private boolean isTabletDevice(Context context) {
-//        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >=
-//                Configuration.SCREENLAYOUT_SIZE_LARGE;
-//    }
+    private void getScores() {//获得分数
+
+        scores.add("请选择分数");
+
+        for (int i = 1; i < 11; i++) {
+
+            scores.add(i + "");
+
+        }
+    }
+
 }

@@ -65,7 +65,7 @@ public class UpdateManager {
 
 					if (null != mHashMap) {
 						int serviceCode = Integer.valueOf(mHashMap.get("version"));
-						Log.i("2016-11-28", "serviceCode==" + serviceCode);
+						Log.i("2018-2-1", "服务器版本号==" + serviceCode);
 						// 版本判断
 						if (serviceCode > versionCode) {
 
@@ -112,7 +112,7 @@ public class UpdateManager {
 		// 获取当前软件版本
 		versionCode = getVersionCode(mContext);
 
-		Log.e("2018-2-1","versionCode===============" + versionCode);
+		Log.e("2018-2-1","本地版本号===============" + versionCode);
 
 		new Thread(new Runnable() {
 			public void run() {

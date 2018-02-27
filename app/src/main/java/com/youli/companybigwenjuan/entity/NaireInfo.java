@@ -20,12 +20,12 @@ public class NaireInfo implements Serializable{
      * CODE :
      * ORDER_V : 1
      * INPUT : false
-     * INPUT_TYPE : 多选
+     * INPUT_TYPE : 单选
      * JUMP_CODE :
      * PARENT_ID : 0
      * MASTER_ID : null
      * REMOVE_CODE :
-     * TYPE_ID : 2
+     * TYPE_ID : 1
      * BINDINFO :
      * WIDTH : 0
      * TITLE_TOP :
