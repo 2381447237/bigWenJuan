@@ -226,7 +226,6 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
                 restartAnswerInfo();
 
-
                 break;
 
             case R.id.btn_submit://提交
@@ -265,9 +264,6 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void lastQuestion(){
         //上一题
-
-
-
 
         if (index == 0) {
             Toast.makeText(this, "已经是第一题了", Toast.LENGTH_SHORT).show();
@@ -499,10 +495,10 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                         }
 
 
-                        Log.e("2018-01-31","您的答案是:"+answerString);
+                        Log.e("2018-2-28","您的答案是:"+answerString);
 
 
-
+//2018-2-27注释
                         try {
                             shujuliu= answerString.getBytes("UTF-8");
                             submit();
@@ -723,14 +719,10 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
                             }
                         }
-
                     }
-
                 }
-
                 qRightll.addView(et);
             }else{
-
                 final TextView tv=new TextView(this);//问题里面选择日期的
                 if(isAll.equals("all")){
                     tv.setEnabled(false);
@@ -756,12 +748,9 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                         new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
                                 tv.setText(year+"年"+(month+1)+"月"+dayOfMonth+"日");
-
                             }
                         },c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
-
                     }
                 });
 
@@ -1110,8 +1099,6 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
         ll.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams llParam;
 
-
-
         if(info.getINPUT_TYPE().contains("下拉框")) {
 
             if(info.getINPUT_TYPE().contains("文本")){
@@ -1124,16 +1111,13 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                     llParam = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT, 280);
 
-
                 } else if (info.getTITLE_L().length() < 50) {
                     llParam = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT, 350);
 
-
                 } else {
                     llParam = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT, 400);
-
 
                 }
             }
@@ -1323,25 +1307,25 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
             spinner.setAdapter(yAdapter);
             spinner.setLayoutParams(etParam);
 
-
-            if (spinners.size() > 0) {
-                List<Spinner> tempSpinners = new ArrayList<>();
-
-                    for (Spinner spinner1 : spinners) {
-
-                            for (int i = 0; i < scores.size(); i++) {
-                                if (TextUtils.equals(spinnerScores.get(spinner1.getId()), scores.get(i))) {
-                                    spinner1.setSelection(i);
-
-                                    yAdapter.notifyDataSetChanged();
-                                    tempSpinners.add(spinner);
-                                }
-                            }
-                    }
-
-                spinners.removeAll(tempSpinners);
-                tempSpinners.clear();
-            }
+//2018-2-28注释
+//            if (spinners.size() > 0) {
+//                List<Spinner> tempSpinners = new ArrayList<>();
+//
+//                    for (Spinner spinner1 : spinners) {
+//                        Log.e("2018-2-28","spinner1======"+spinner1.getId());
+//                            for (int i = 0; i < scores.size(); i++) {
+//                                if (TextUtils.equals(spinnerScores.get(spinner1.getId()), scores.get(i))) {
+//                                    spinner1.setSelection(i);
+//
+//                                    yAdapter.notifyDataSetChanged();
+//                                    tempSpinners.add(spinner);
+//                                }
+//                            }
+//                    }
+//
+//                spinners.removeAll(tempSpinners);
+//                tempSpinners.clear();
+//            }
 
 
             if(aInfo!=null&&aInfo.size()>0){
@@ -1349,17 +1333,14 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
                 for(NaireAnswerInfo caInfo:aInfo){
 
                     for(Spinner sp:spinners){
+
                         if(caInfo.getDETIL_ID()==sp.getId()){
 
-
                             for(int i=0;i<scores.size();i++){
-
                                 String str=caInfo.getINPUT_VALUE();
-
                                 if(str.contains("&")){
                                     str=str.split("&")[1];
                                 }
-
                                 if(TextUtils.equals(scores.get(i),str)){
                                     sp.setSelection(i);
                                     yAdapter.notifyDataSetChanged();
@@ -1385,6 +1366,25 @@ public class NaireDetailActivity extends BaseActivity implements View.OnClickLis
 
 
             spinners.add(spinner);
+
+            if (spinners.size() > 0) {
+                List<Spinner> tempSpinners = new ArrayList<>();
+
+                for (Spinner spinner1 : spinners) {
+                    Log.e("2018-2-28","spinner1111======"+spinner1.getId());
+                    for (int i = 0; i < scores.size(); i++) {
+                        if (TextUtils.equals(spinnerScores.get(spinner1.getId()), scores.get(i))) {
+                            spinner1.setSelection(i);
+
+                            yAdapter.notifyDataSetChanged();
+                            tempSpinners.add(spinner);
+                        }
+                    }
+                }
+
+             //   spinners.removeAll(tempSpinners);
+                tempSpinners.clear();
+            }
 
 
             TextView tvRight = new TextView(this);
