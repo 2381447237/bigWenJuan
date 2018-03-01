@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.youli.companybigwenjuan.activity.LoginActivity"
-    android:background="@drawable/sybj">
+    android:background="@drawable/sybjt2">
 
 
 
@@ -90,5 +90,14 @@
        android:textColor="#fff"
        android:text="登   录"
        android:background="@drawable/btn_dl_selector2"/>
+
+    <TextView
+        android:textSize="12sp"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="技 术 支 持：上 海 有 立 信 息 科 技 有 限 公 司"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
